@@ -4,6 +4,7 @@ import { AuthGuard } from './admin/guard/auth.guard';
 import { HomeComponent } from './admin/home/home.component';
 import { LayoutsComponent } from './admin/layouts/layouts.component';
 import { LoginComponent } from './admin/login/login.component';
+import { SignupComponent } from './admin/signup/signup.component';
 import { UrlsComponent } from './admin/urls/urls.component';
 
 const routes: Routes = [
@@ -18,6 +19,14 @@ const routes: Routes = [
     component:LoginComponent,
     loadChildren: ()=> import('./admin/login/login.module').then(m=>m.LoginModule)
   },
+
+  {
+    path: 'signup',
+    component:SignupComponent,
+    loadChildren: ()=> import('./admin/signup/signup.module').then(m=>m.SignupModule)
+  },
+
+
 
   {
     path: 'admin',

@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from './admin/admin.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptor } from './admin/login/interceptor/auth.interceptor';
+
+
+
 
 @NgModule({
   declarations: [
@@ -21,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     ToastrModule.forRoot({
       closeButton:true,
       progressBar:true
@@ -28,7 +33,9 @@ import { ToastrModule } from 'ngx-toastr';
 
   ],
   providers: [
-    {provide: 'apiUrl', useValue:'https://localhost:7146/api/'}
+    {provide: 'apiUrl', useValue:'https://localhost:7146/api/'},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+
   ],
   bootstrap: [AppComponent]
 })

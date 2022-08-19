@@ -24,7 +24,12 @@ export class UrlService {
 
   deleteUrl(url:UrlModel){
     let api = this.apiUrl + "Url/Delete";
-    return this.httpClient.post(api, url)
+    return this.httpClient.post<ResponseModel>(api, url)
 
+  }
+
+  addUrl(url:UrlModel){
+    let api = this.apiUrl + "Url/Add";
+    return this.httpClient.post<ResponseModel>(api, url)
   }
 }

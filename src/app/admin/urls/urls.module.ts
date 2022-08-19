@@ -4,6 +4,8 @@ import { UrlsComponent } from './urls.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UrlPipe } from './pipes/url.pipe';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2"
+import { ModalModule,  BsModalService } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const route: Routes = [
   {
     path:"",
@@ -19,10 +21,17 @@ const route: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(route),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
+
   ],
   exports: [
     UrlsComponent
-  ]
+  ],
+  providers: [
+    BsModalService
+  ],
 })
 export class UrlsModule { }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ErrorService } from '../login/services/error.service';
 import { UrlModel } from './models/url-model';
 import { UrlService } from './services/url.service';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import { FormGroup, NgForm } from '@angular/forms';
 
 
 @Component({
@@ -12,16 +14,27 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UrlsComponent implements OnInit {
 
+
+  modalRef? :BsModalRef;
   urls: UrlModel[] = [];
 
   constructor(
     private urlService: UrlService,
     private errorService: ErrorService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private modalService:BsModalService
   ) { }
 
   ngOnInit(): void {
     this.getUrlList();
+  }
+  openModel(urlAddModel:TemplateRef<any>){
+
+        this.modalRef = this.modalService.show(urlAddModel)
+  }
+
+  closeModal(){
+   this.modalRef.hide();
   }
 
   getUrlList(){
@@ -39,6 +52,21 @@ export class UrlsComponent implements OnInit {
     },(err)=>{
       this.errorService.errorHandler(err);
     })
+
+  }
+
+  addUrl(tweetUrl:any){
+    let url : UrlModel = new UrlModel();
+    url.tweetUrl = tweetUrl.value;
+    url.id = 0;
+
+    this.urlService.addUrl(url).subscribe((res:any)=>{
+      this.toastrService.success("Tweet linki kaydedildi")
+      this.getUrlList();
+      //addForm.reset();
+    },(err)=>{
+      this.errorService.errorHandler(err);
+    });
 
   }
 }
