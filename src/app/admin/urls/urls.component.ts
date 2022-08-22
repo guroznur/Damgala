@@ -41,7 +41,8 @@ export class UrlsComponent implements OnInit {
 
   getUrlList(){
     let url : UrlModel = new UrlModel();
-    url.userId = this.decodeService.getUserId().valueOf();
+    let userId = this.decodeService.getUserName().valueOf();
+    console.log(userId)
     this.urlService.getUrlList().subscribe((res:any)=>{
 
       this.urls = res.data;
