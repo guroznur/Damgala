@@ -5,6 +5,7 @@ import { UrlService } from './services/url.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import { FormGroup, NgForm } from '@angular/forms';
+import { DecodeService } from '../login/services/decode.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class UrlsComponent implements OnInit {
     private urlService: UrlService,
     private errorService: ErrorService,
     private toastrService: ToastrService,
-    private modalService:BsModalService
+    private modalService:BsModalService,
+    private decodeService:DecodeService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,10 @@ export class UrlsComponent implements OnInit {
   }
 
   getUrlList(){
+    let url : UrlModel = new UrlModel();
+    url.userId = this.decodeService.getUserId().valueOf();
     this.urlService.getUrlList().subscribe((res:any)=>{
+
       this.urls = res.data;
     },(err:any)=>{
       this.errorService.errorHandler(err)
@@ -58,6 +63,7 @@ export class UrlsComponent implements OnInit {
   addUrl(tweetUrl:any){
     let url : UrlModel = new UrlModel();
     url.tweetUrl = tweetUrl.value;
+    url.userId = +this.decodeService.getUserId();
     url.id = 0;
 
     this.urlService.addUrl(url).subscribe((res:any)=>{
@@ -68,5 +74,5 @@ export class UrlsComponent implements OnInit {
       this.errorService.errorHandler(err);
     });
 
-  }
+   }
 }

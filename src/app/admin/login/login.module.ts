@@ -14,7 +14,7 @@ const routes:Routes =[
 
 @NgModule({
   declarations: [
-    LoginComponent
+   // LoginComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +24,7 @@ const routes:Routes =[
     RouterModule.forChild(routes)
   ],
   exports: [
-    LoginComponent,
+    //LoginComponent,
     ReactiveFormsModule
   ]
 })

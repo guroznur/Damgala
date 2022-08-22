@@ -11,15 +11,13 @@ import { SignupModule } from './signup/signup.module';
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
 
   imports: [
     CommonModule,
     HomeModule,
     LayoutsModule,
-    LoginModule,
+    //LoginModule,
     UrlsModule,
     SignupModule
 
@@ -28,7 +26,7 @@ import { SignupModule } from './signup/signup.module';
   exports: [
     HomeModule,
     LayoutsModule,
-    LoginModule,
+    //LoginModule,
     UrlsModule,
     SignupModule
 

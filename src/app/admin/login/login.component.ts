@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { ErrorService } from './services/error.service';
 import { ToastrService } from 'ngx-toastr';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,13 @@ export class LoginComponent implements OnInit {
     private formBuilder:FormBuilder,
     private errorService:ErrorService,
     private toastrService:ToastrService,
+    private socialAuthService:SocialAuthService
+  ) {
 
-  ) { }
+    this.socialAuthService.authState.subscribe((user:SocialUser)=>{
+      console.log(user)
+    });
+  }
 
   createLoginForm(){
     this.loginForm = this.formBuilder.group({
